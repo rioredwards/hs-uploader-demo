@@ -71,3 +71,24 @@ export default defineConfig([
   },
 ])
 ```
+
+## Hello World with Firebase Functions
+
+This project includes a Firebase Cloud Function `helloWorld` and a React UI that calls it.
+
+Two local options:
+
+- Firebase Hosting emulator (closest to production)
+  - Terminal A (root): `npm run build:watch`
+  - Terminal B (root): `firebase emulators:start`
+  - Open: http://localhost:5051
+
+- Vite dev server with proxy (fastest DX)
+  - Terminal A (functions): `cd functions && npm run build:watch`
+  - Terminal B (root): `npm run dev`
+  - Open: http://localhost:5173
+
+Notes
+- The app calls `/api/hello`.
+- In production/Hosting emulator, `firebase.json` rewrites `/api/hello` → Functions `helloWorld`.
+- In Vite dev, `vite.config.ts` proxies `/api/*` to the Functions emulator at `http://localhost:5001/hs-uploader-demo/us-central1/*`.

@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/hello",
+        "function": "helloWorld"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
