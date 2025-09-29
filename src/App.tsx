@@ -1,39 +1,35 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import UploadWidget from './components/upload/UploadWidget'
-import useQueryParams from './hooks/useQueryParams'
+import { useEffect, useState } from "react";
+import "./App.css";
+import UploadWidget from "./components/upload/UploadWidget";
+import useQueryParams from "./hooks/useQueryParams";
 
 function App() {
-  const [message, setMessage] = useState<string>('Loading...')
-  const [error, setError] = useState<string | null>(null)
-  const { token, claimName, claimId, fullName, userId } = useQueryParams()
-  const allParamsPresent = Boolean(token && claimName && claimId && fullName && userId)
+  const [message, setMessage] = useState<string>("Loading...");
+  const [error, setError] = useState<string | null>(null);
+  const { token, claimName, claimId, fullName, userId } = useQueryParams();
+  const allParamsPresent = Boolean(token && claimName && claimId && fullName && userId);
 
   useEffect(() => {
-    let cancelled = false
-    ;(async () => {
+    let cancelled = false;
+    (async () => {
       try {
-        const res = await fetch('/api/hello')
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const text = await res.text()
-        if (!cancelled) setMessage(text)
+        const res = await fetch("/api/hello");
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        if (!cancelled) setMessage(text);
       } catch (e: unknown) {
-        if (!cancelled) setError((e as Error).message)
+        if (!cancelled) setError((e as Error).message);
       }
-    })()
+    })();
     return () => {
-      cancelled = true
-    }
-  }, [])
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <>
       <h1>React + Firebase Functions</h1>
-      {error ? (
-        <p role="alert">Error: {error}</p>
-      ) : (
-        <p id="hello">{message}</p>
-      )}
+      {error ? <p role="alert">Error: {error}</p> : <p id="hello">{message}</p>}
       {allParamsPresent ? (
         <UploadWidget
           uploadUrl="URL"
@@ -50,7 +46,7 @@ function App() {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
