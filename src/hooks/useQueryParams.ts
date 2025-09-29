@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 
 type ParsedParams = {
-  code: string | null
+  token: string | null
   claimName: string | null
   claimId: string | null
   fullName: string | null
   userId: string | null
 }
 
-const KEYS: (keyof ParsedParams)[] = ['code', 'claimName', 'claimId', 'fullName', 'userId']
+const KEYS: (keyof ParsedParams)[] = ['token', 'claimName', 'claimId', 'fullName', 'userId']
 
 function getHashSearchParams(loc: Location): URLSearchParams {
   const rawHash = loc.hash.startsWith('#') ? loc.hash.slice(1) : loc.hash
@@ -21,7 +21,7 @@ function extractParamsFromLocation(loc: Location): ParsedParams {
   const searchParams = new URLSearchParams(loc.search)
 
   const result: ParsedParams = {
-    code: null,
+    token: null,
     claimName: null,
     claimId: null,
     fullName: null,
@@ -45,7 +45,7 @@ export default function useQueryParams(): ParsedParams {
   const hasWindow = typeof window !== 'undefined'
   const initial = useMemo<ParsedParams>(() => {
     if (!hasWindow) {
-      return { code: null, claimName: null, claimId: null, fullName: null, userId: null }
+      return { token: null, claimName: null, claimId: null, fullName: null, userId: null }
     }
     return extractParamsFromLocation(window.location)
   }, [hasWindow])

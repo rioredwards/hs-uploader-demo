@@ -6,7 +6,7 @@ import useQueryParams from './hooks/useQueryParams'
 function App() {
   const [message, setMessage] = useState<string>('Loading...')
   const [error, setError] = useState<string | null>(null)
-  const { code, claimName, claimId, fullName, userId } = useQueryParams()
+  const { token, claimName, claimId, fullName, userId } = useQueryParams()
 
   useEffect(() => {
     let cancelled = false
@@ -40,7 +40,7 @@ function App() {
         </p>
         <div>
           <strong>URLSearchParams:</strong>
-          <p>code: {code ?? 'N/A'}</p>
+          <p>token: {token ?? 'N/A'}</p>
           <p>claimName: {claimName ?? 'N/A'}</p>
           <p>claimId: {claimId ?? 'N/A'}</p>
           <p>fullName: {fullName ?? 'N/A'}</p>
@@ -49,7 +49,7 @@ function App() {
       </section>
       <UploadWidget
         uploadUrl="URL"
-        token="1234567890"
+        token={token ?? '1234567890'}
         claimName={claimName ?? 'Test Claim'}
         claimId={claimId ?? '1234567890'}
         fullName={fullName ?? 'Test Full Name'}
