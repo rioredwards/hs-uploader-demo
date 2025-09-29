@@ -17,8 +17,9 @@ function getHashSearchParams(loc: Location): URLSearchParams {
 }
 
 function extractParamsFromLocation(loc: Location): ParsedParams {
+  // All query params are expected after the initial '#'.
+  // Ignore anything after a second '#', e.g. '#https://app.hubspot.com'.
   const hashParams = getHashSearchParams(loc)
-  const searchParams = new URLSearchParams(loc.search)
 
   const result: ParsedParams = {
     token: null,
@@ -29,7 +30,7 @@ function extractParamsFromLocation(loc: Location): ParsedParams {
   }
 
   for (const key of KEYS) {
-    let value = hashParams.get(key) || searchParams.get(key)
+    let value = hashParams.get(key)
     if (value) {
       // Guard against stray fragment pieces in values
       value = value.split('#')[0] || value
