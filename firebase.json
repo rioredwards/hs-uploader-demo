@@ -8,13 +8,23 @@
     ],
     "rewrites": [
       {
+        "source": "/api/hello",
+        "function": "helloWorld"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "predeploy": [
+      "npm run build"
     ]
   },
   "functions": {
-    "source": "functions"
+    "source": "functions",
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ]
   },
   "emulators": {
     "functions": {

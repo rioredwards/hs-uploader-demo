@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import UploadWidget from "./components/upload/UploadWidget";
+import useQueryParams from "./hooks/useQueryParams";
+
+const FILE_UPLOAD_URL = "https://dev-hansen-rosasco.web.app/";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { token, claimName, claimId, fullName, userId } = useQueryParams();
+  const allParamsPresent = Boolean(token && claimName && claimId && fullName && userId);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {allParamsPresent ? (
+        <>
+          <h1>Upload Document for {claimName}</h1>
+          <UploadWidget
+            uploadUrl={FILE_UPLOAD_URL}
+            token={token as string}
+            claimName={claimName as string}
+            claimId={claimId as string}
+            fullName={fullName as string}
+            userId={userId as string}
+          />
+        </>
+      ) : (
+        <div role="alert" style={{ marginTop: 16 }}>
+          <p>This page is not available.</p>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
