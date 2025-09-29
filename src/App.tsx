@@ -7,6 +7,7 @@ function App() {
   const [message, setMessage] = useState<string>('Loading...')
   const [error, setError] = useState<string | null>(null)
   const { token, claimName, claimId, fullName, userId } = useQueryParams()
+  const allParamsPresent = Boolean(token && claimName && claimId && fullName && userId)
 
   useEffect(() => {
     let cancelled = false
@@ -33,28 +34,21 @@ function App() {
       ) : (
         <p id="hello">{message}</p>
       )}
-      <section style={{ marginTop: 24 }}>
-        <h2>Request Info</h2>
-        <p>
-          <strong>URL:</strong> {typeof window !== 'undefined' ? window.location.href : 'N/A'}
-        </p>
-        <div>
-          <strong>URLSearchParams:</strong>
-          <p>token: {token ?? 'N/A'}</p>
-          <p>claimName: {claimName ?? 'N/A'}</p>
-          <p>claimId: {claimId ?? 'N/A'}</p>
-          <p>fullName: {fullName ?? 'N/A'}</p>
-          <p>userId: {userId ?? 'N/A'}</p>
+      {allParamsPresent ? (
+        <UploadWidget
+          uploadUrl="URL"
+          token={token as string}
+          claimName={claimName as string}
+          claimId={claimId as string}
+          fullName={fullName as string}
+          userId={userId as string}
+        />
+      ) : (
+        <div role="alert" style={{ marginTop: 16 }}>
+          <p>This page is not available.</p>
+          <p>Please open the original secure link or contact support.</p>
         </div>
-      </section>
-      <UploadWidget
-        uploadUrl="URL"
-        token={token ?? '1234567890'}
-        claimName={claimName ?? 'Test Claim'}
-        claimId={claimId ?? '1234567890'}
-        fullName={fullName ?? 'Test Full Name'}
-        userId={userId ?? '1234567890'}
-      />
+      )}
     </>
   )
 }
