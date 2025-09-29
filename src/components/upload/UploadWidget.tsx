@@ -213,6 +213,8 @@ export function UploadWidget(props: UploadWidgetProps) {
           body: formData,
         });
 
+        console.log("resp", resp);
+
         if (!resp.ok) {
           const errorText = await resp.text().catch(() => "");
           throw new Error(`HTTP error! status: ${resp.status}, message: ${errorText}`);

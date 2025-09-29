@@ -3,7 +3,7 @@ import "./App.css";
 import UploadWidget from "./components/upload/UploadWidget";
 import useQueryParams from "./hooks/useQueryParams";
 
-const FILE_UPLOAD_URL = import.meta.env.VITE_FILE_UPLOAD_URL;
+const FILE_UPLOAD_URL = "https://uploadfiletohubspot-mbi3nl2l6q-uc.a.run.app";
 
 function App() {
   const [message, setMessage] = useState<string>("Loading...");
