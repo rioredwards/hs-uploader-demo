@@ -2,7 +2,7 @@ import "./App.css";
 import UploadWidget from "./components/upload/UploadWidget";
 import useQueryParams from "./hooks/useQueryParams";
 
-const FILE_UPLOAD_URL = "https://uploadfiletohubspot-mbi3nl2l6q-uc.a.run.app";
+const FILE_UPLOAD_URL = "https://dev-hansen-rosasco.web.app/";
 
 function App() {
   const { token, claimName, claimId, fullName, userId } = useQueryParams();
