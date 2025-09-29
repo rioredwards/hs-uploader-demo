@@ -3,6 +3,8 @@ import "./App.css";
 import UploadWidget from "./components/upload/UploadWidget";
 import useQueryParams from "./hooks/useQueryParams";
 
+const FILE_UPLOAD_URL = import.meta.env.VITE_FILE_UPLOAD_URL;
+
 function App() {
   const [message, setMessage] = useState<string>("Loading...");
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +34,7 @@ function App() {
       {error ? <p role="alert">Error: {error}</p> : <p id="hello">{message}</p>}
       {allParamsPresent ? (
         <UploadWidget
-          uploadUrl="URL"
+          uploadUrl={FILE_UPLOAD_URL}
           token={token as string}
           claimName={claimName as string}
           claimId={claimId as string}
