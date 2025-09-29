@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import UploadWidget from './components/upload/UploadWidget'
-import useCodeFromHash from './hooks/useCodeFromHash'
+import useQueryParams from './hooks/useQueryParams'
 
 function App() {
   const [message, setMessage] = useState<string>('Loading...')
   const [error, setError] = useState<string | null>(null)
-  const code = useCodeFromHash()
+  const { code, claimName, claimId, fullName, userId } = useQueryParams()
 
   useEffect(() => {
     let cancelled = false
@@ -41,15 +41,19 @@ function App() {
         <div>
           <strong>URLSearchParams:</strong>
           <p>code: {code ?? 'N/A'}</p>
+          <p>claimName: {claimName ?? 'N/A'}</p>
+          <p>claimId: {claimId ?? 'N/A'}</p>
+          <p>fullName: {fullName ?? 'N/A'}</p>
+          <p>userId: {userId ?? 'N/A'}</p>
         </div>
       </section>
       <UploadWidget
         uploadUrl="URL"
         token="1234567890"
-        claimName="Test Claim"
-        claimId="1234567890"
-        fullName="Test Full Name"
-        userId="1234567890"
+        claimName={claimName ?? 'Test Claim'}
+        claimId={claimId ?? '1234567890'}
+        fullName={fullName ?? 'Test Full Name'}
+        userId={userId ?? '1234567890'}
       />
     </>
   )
