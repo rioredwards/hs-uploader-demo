@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import UploadWidget from './components/upload/UploadWidget'
 import useCodeFromHash from './hooks/useCodeFromHash'
 
 function App() {
@@ -42,6 +43,14 @@ function App() {
           <p>code: {code ?? 'N/A'}</p>
         </div>
       </section>
+      <UploadWidget
+        uploadUrl="URL"
+        token="1234567890"
+        claimName="Test Claim"
+        claimId="1234567890"
+        fullName="Test Full Name"
+        userId="1234567890"
+      />
     </>
   )
 }
